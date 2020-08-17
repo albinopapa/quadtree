@@ -37,7 +37,8 @@ struct VectorMemberAccess{
   static constexpr y( vector_type const& )noexcept;  // getter function
   static constexpr x( vector_type&, scalar_type )noexcept; // setter function
   static constexpr y( vector_type&, scalar_type )noexcept; // setter function
-};```
+};
+```
 The rect_traits<> class has more functionality such as rect_traits::intersects() and rect_traits::contains(), so you don't have to create your own.  The vector2_traits class has length(), length_sqr(), dot() and normalize() functions which can all be used just with the member access struct you provide.
 
 Features implemented that work:
