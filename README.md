@@ -42,14 +42,14 @@ struct VectorMemberAccess{
 The rect_traits<> class has more functionality such as rect_traits::intersects() and rect_traits::contains(), so you don't have to create your own.  The vector2_traits class has length(), length_sqr(), dot() and normalize() functions which can all be used just with the member access struct you provide.
 
 Features implemented that work:
--Adding objects to nodes
--Sorting objects into the nodes
--Removing objects
--Querying the tree to return a vector of object pointers within a region
+- Adding objects to nodes
+- Sorting objects into the nodes
+- Removing objects
+- Querying the tree to return a vector of object pointers within a region
 
 Features implemented that partially work:
--Iterators and const iterators
+- Iterators and const iterators
 
 Features implemented, but not fully tested:
--Finding a specific object in the tree
--Removal of empty nodes when removing the last object from a node
+- Finding a specific object in the tree
+- Removal of empty nodes when removing the last object from a node
