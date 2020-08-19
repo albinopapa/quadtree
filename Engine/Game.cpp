@@ -23,7 +23,7 @@
 #include <random>
 
 constexpr int max_objects = 10'000;
-constexpr auto world_bounds = chili_rect_traits::construct( -10'000.f, -10'000.f, 10'000.f, 10'000 );
+constexpr auto world_bounds = chili_rect_traits::construct( -5'000.f, -5'000.f, 5'000.f, 5'000.f );
 constexpr auto screen_bounds = chili_rect_traits::construct( 
 	-float( Graphics::ScreenWidth / 2 ),
 	-float( Graphics::ScreenHeight / 2 ),
@@ -136,61 +136,47 @@ void Game::UpdateModel()
 #if !defined(DEBUG) && !defined(_DEBUG)
 	const auto dt = timer.mark();
 #else
-	const auto dt = .016f;
+	//const auto dt = .016f;
 #endif
+	const auto dt = timer.mark();
 
 	wnd.SetText( std::to_wstring( 1.f / dt ) );
 
-	const auto max_count = vtree.size();
-	for( std::size_t count = std::size_t{}; auto & ball : vtree ) {
-		if( count + 1 == max_count ) {
-			int a = 0;
-		}
+	for( int count = 0; auto& ball : vtree ) {
 		ball.update( dt );
 		rebound_off_walls( ball );
 		ball.set_normal_color();
 		++count;
 	}
-
-	//vtree.commit();
 	
-	for( auto& lball : vtree ) {
-		/*auto [node, it] = tree.find( lball );
-
-		if( node == nullptr ) continue;
-		for( auto& data : node->elements() ) {
-			auto& rball = data.object();
-
-			if( &lball == &rball )continue;
-
-			if( is_colliding( lball, rball ) ) {
-				resolve( lball, rball );
-				lball.set_collide_color();
-				rball.set_collide_color();
-			}
-			else {
-				lball.set_contained_color();
-				rball.set_contained_color();
-			}
-
-		}*/
-
-		auto colliding = vtree.query( lball.get_aabb() );
-		for( auto* pball : colliding ) {
-			auto& rball = *pball;
-			if( &lball == &rball )continue;
-
-			if( is_colliding( lball, rball ) ) {
-				resolve( lball, rball );
-				lball.set_collide_color();
-				rball.set_collide_color();
-			}
-			else {
-				lball.set_contained_color();
-				rball.set_contained_color();
-			}
+	/*for( auto it = vtree.end(); it != vtree.begin(); --it ) {
+		auto pit = it;
+		--pit;
+		if( !chili_rect_traits::contains( pit.bounds(), pit->get_aabb() ) ) {
+			auto temp = std::move( *pit );
+			vtree.erase( pit );
+			vtree.push( std::move( temp ) );
 		}
 	}
+
+	for( auto it = vtree.begin(); it != vtree.end(); ++it ) {
+		auto colliding = vtree.query( it->get_aabb() );
+		std::erase_if( colliding, [&]( Ball const* pvalue ) {return &( *it ) == pvalue; } );
+
+		bool deleted = false;
+		for( auto* pball : colliding ) {
+			if( is_colliding( *it, *pball ) ) {
+				resolve( *it, *pball );
+				it->set_collide_color();
+				pball->set_collide_color();
+				break;
+			}
+			else {
+				it->set_contained_color();
+				pball->set_contained_color();
+			}
+		}
+	}*/
 }
 
 void Game::ComposeFrame()
@@ -199,10 +185,10 @@ void Game::ComposeFrame()
 	for( const auto* pball : in_view ) {
 		pball->draw( gfx );
 	}*/
-	for( const auto& ball : vtree ) {
-		const auto aabb = ball.get_aabb();
-		if( chili_rect_traits::intersects( screen_bounds, aabb ) ) {
-			ball.draw( gfx );
-		}
-	}
+	//for( const auto& ball : vtree ) {
+	//	const auto aabb = ball.get_aabb();
+	//	if( chili_rect_traits::intersects( screen_bounds, aabb ) ) {
+	//		ball.draw( gfx );
+	//	}
+	//}
 }

@@ -4,6 +4,12 @@
 #include <numeric>
 #include <utility>
 
+template<typename RectMemberAccess> struct has_construct_fn {
+	using scalar_type = typename RectMemberAccess::scalar_type;
+	static constexpr bool value = 
+		std::is_invocable_v<decltype( &RectMemberAccess::construct ), scalar_type, scalar_type, scalar_type, scalar_type>;
+};
+
 template<typename RectMemberAccess>
 struct rect_traits {
 	using access_traits = RectMemberAccess;
