@@ -3,6 +3,45 @@
 #include <cmath>
 #include <utility>
 
+// Vec2MemberAccess template parameter must be a structure with 
+// the following format
+
+//	struct Vec2Access {
+//		using vector_type = Vec2f;
+//		using scalar_type = float;
+//	
+//		static constexpr auto construct( scalar_type x_, scalar_type y_ )noexcept;
+//		static constexpr auto x( vector_type const& vec )noexcept;
+//		static constexpr auto y( vector_type const& vec )noexcept;
+//	
+//		static constexpr void x( vector_type& vec, float value )noexcept;
+//		static constexpr void y( vector_type& vec, float value )noexcept;
+//	};
+
+//	An example of using the b2Vec2 from Block2D
+
+//	struct Block2DAccess {
+//		using vector_type = b2Vec2;
+//		using scalar_type = float;
+//	
+//		static constexpr auto construct( scalar_type x_, scalar_type y_ )noexcept{
+//			return vector_type{ x_, y_ };
+//		}
+//		static constexpr auto x( vector_type const& vec )noexcept{
+//			return vec.x;
+//		}
+//		static constexpr auto y( vector_type const& vec )noexcept{
+//			return vec.y;
+//		}
+//	
+//		static constexpr void x( vector_type& vec, float value )noexcept{
+//			vec.x = value;
+//		}
+//		static constexpr void y( vector_type& vec, float value )noexcept{
+//			vec.y = value;
+//		}
+//	};
+
 template<typename Vec2MemberAccess> struct vector2_traits {
 	using access_traits = Vec2MemberAccess;
 	using vector_type = typename Vec2MemberAccess::vector_type;

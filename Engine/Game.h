@@ -27,6 +27,7 @@
 #include "Timer.h"
 #include "Vec2.h"
 #include "qtree.h"
+#include <memory>
 
 class Game
 {
@@ -38,7 +39,8 @@ public:
 private:
 	void ComposeFrame();
 	void UpdateModel();
-
+	void UpdatePositions( Rectf const& node_bounds, std::vector<Ball>& balls, std::vector<Ball>& remove_list, float dt );
+	void UpdateCollisions( std::vector<Ball>& balls );
 private:
 	MainWindow& wnd;
 	Graphics gfx;
@@ -46,6 +48,9 @@ private:
 	/*  User Variables              */
 	/********************************/
 	Timer timer;
-	//primary::qtree<100, chili_rect_traits, chili_vec2_traits, Ball> tree;
-	value_qtree::qtree<100, chili_rect_traits, chili_vec2_traits, Ball> vtree;
+	qtree<100, chili_rect_traits, chili_vec2_traits, Ball> vtree;
+	int collide_min = std::numeric_limits<int>::max();
+	int collide_max = std::numeric_limits<int>::min();
+	int collide_count = 0;
+	std::wstring win_title;
 };

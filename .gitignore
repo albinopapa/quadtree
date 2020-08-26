@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Engine/ChunkAllocator.h
+/Engine/playground.h
+/quadtree sample old.zip
