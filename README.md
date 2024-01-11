@@ -18,12 +18,20 @@ struct RectMemberAcess{
   using rect_type =   ;// whatever rectangle class you are using
   using scalar_type = ;// the data type of the members in the rectangle class
 
+  // Creates a rect_type.
   static constexpr rect_type construct(scalar_type left_, scalar_type top_, scalar_type right scalar_type bottom )noexcept;
+
+  // Getters
   static constexpr scalar_type left( rect_type const& )noexcept;
   static constexpr scalar_type top( rect_type const& )noexcept;
   static constexpr scalar_type right( rect_type const& )noexcept;
-  static constexpr scalar_type width( rect_type const& )noexcept;
-  static constexpr scalar_type height( rect_type const& )noexcept;
+  static constexpr scalar_type bottom( rect_type const& )noexcept;
+
+  // Setters
+  static constexpr void left( rect_type const&, scalar_type )noexcept;
+  static constexpr void top( rect_type const&, scalar_type )noexcept;
+  static constexpr void right( rect_type const&, scalar_type )noexcept;
+  static constexpr void bottom( rect_type const&, scalar_type )noexcept;
 };
 ```
 For the 2D vector, you'll need to provide a structure with some static constexpr noexcept methods:
@@ -32,9 +40,15 @@ struct VectorMemberAccess{
   using vector_type = ;// whatever 2d vector you want to use
   using scalar_type = ;// the data type of x and y
 
+  // Constructors
+  static constexpr construct()noexcept;
   static constexpr construct( scalar_type, scalar_type )noexcept;
-  static constexpr x( vector_type const& )noexcept;  // getter function
-  static constexpr y( vector_type const& )noexcept;  // getter function
+
+  // Getters
+  static constexpr scalar_type x( vector_type const& )noexcept;  // getter function
+  static constexpr scalar_type y( vector_type const& )noexcept;  // getter function
+
+  // Setters
   static constexpr x( vector_type&, scalar_type )noexcept; // setter function
   static constexpr y( vector_type&, scalar_type )noexcept; // setter function
 };
